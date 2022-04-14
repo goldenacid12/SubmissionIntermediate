@@ -5,7 +5,6 @@
     <string name="app_logo">App Logo</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
-    <string name="don_t_have_account">Don\'t have any account?</string>
     <string name="sign_up">Sign Up</string>
     <string name="name">Name</string>
     <string name="or">or</string>
@@ -16,7 +15,7 @@
     <string name="input_password">Input Password</string>
     <string name="account_create"> Account Created</string>
     <string name="insert_name">Insert Name!</string>
-    <string name="password_min">Password minimal 6 character</string>
+    <string name="password_min">Password must have at least 6 characters</string>
     <string name="log_out">Log Out</string>
     <string name="story">Story</string>
 </resources>
