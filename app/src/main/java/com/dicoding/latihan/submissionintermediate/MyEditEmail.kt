@@ -29,8 +29,6 @@ class MyEditEmail : AppCompatEditText, View.OnTouchListener {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        // Menambahkan hint pada editText
-        hint = resources.getString(R.string.input_email)
 
         // Menambahkan text alignment pada editText
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START

@@ -2,19 +2,13 @@ package com.dicoding.latihan.submissionintermediate
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat
 
 class MyEditPass : AppCompatEditText {
-
-    private lateinit var clearButtonImage: Drawable
-    private lateinit var showButtonImage: Drawable
 
     constructor(context: Context) : super(context) {
         init()
@@ -30,8 +24,6 @@ class MyEditPass : AppCompatEditText {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        // Menambahkan hint pada editText
-        hint = context.getString(R.string.input_password)
 
         // Menambahkan text alignment pada editText
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START

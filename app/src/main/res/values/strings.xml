@@ -18,4 +18,6 @@
     <string name="password_min">Password must have at least 6 characters</string>
     <string name="log_out">Log Out</string>
     <string name="story">Story</string>
+    <string name="input_name">Input Name</string>
+    <string name="sign_in">Sign In</string>
 </resources>

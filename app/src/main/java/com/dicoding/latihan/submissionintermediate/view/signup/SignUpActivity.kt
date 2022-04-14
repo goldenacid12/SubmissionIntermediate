@@ -73,7 +73,7 @@ class SignUpActivity : AppCompatActivity() {
                     signupViewModel.saveUser(UserModel(name, email, password, false))
                     AlertDialog.Builder(this).apply {
                         setTitle(getString(R.string.sign_up))
-                        setMessage("Account Create")
+                        setMessage(getString(R.string.account_create))
                         setPositiveButton("OK") { _, _ ->
                             finish()
                         }
