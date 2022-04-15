@@ -27,10 +27,10 @@ interface ApiService {
     ):Call<StoriesResponse>
 
     @FormUrlEncoded
-    @Headers("Authorization: Bearer <token>")
     @POST("stories")
     fun postStories(
         @Field("description") description: String,
-        @Field("photo") photo: Image
+        @Field("photo") photo: Image,
+        @Header("Authorization") token: String
     ): Call<NewStoriesResponse>
 }
