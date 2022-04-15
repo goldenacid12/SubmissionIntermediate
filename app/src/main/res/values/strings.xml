@@ -20,4 +20,12 @@
     <string name="story">Story</string>
     <string name="input_name">Input Name</string>
     <string name="sign_in">Sign In</string>
+    <string name="user">user</string>
+    <string name="description">description</string>
+    <string name="detail_photo">detail photo</string>
+    <string name="email_not_format">Email isn\'t the right Format</string>
+    <string name="email_used">Email has been Used</string>
+    <string name="preferences">Preferences</string>
+    <string name="token">TOKEN</string>
+    <string name="settings">Settings</string>
 </resources>

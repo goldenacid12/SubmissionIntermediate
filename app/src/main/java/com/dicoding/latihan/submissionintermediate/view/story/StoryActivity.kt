@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.WindowInsets
-import android.view.WindowManager
+import android.view.*
+import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.preferencesDataStore
@@ -21,6 +21,7 @@ import com.dicoding.latihan.submissionintermediate.model.UserPreference
 import com.dicoding.latihan.submissionintermediate.response.ListStoryItem
 import com.dicoding.latihan.submissionintermediate.response.StoriesResponse
 import com.dicoding.latihan.submissionintermediate.view.login.LoginActivity
+import com.dicoding.latihan.submissionintermediate.view.preferences.PreferencesActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,10 +43,27 @@ class StoryActivity : AppCompatActivity() {
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.recyclerView.addItemDecoration(itemDecoration)
 
+        showLoading(false)
         setupView()
         setupViewModel()
         setupAction()
-        storyData()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.option_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.settings -> {
+                val settings = Intent(this, PreferencesActivity::class.java)
+                startActivity(settings)
+                true
+            }
+            else -> true
+        }
     }
 
     private fun setupView() {
@@ -73,21 +91,25 @@ class StoryActivity : AppCompatActivity() {
         }
     }
     private fun setupAction(){
+        storyViewModel.getUser().observe(this){ user ->
+            val token = user.token
+            Log.d(TOKEN, token)
+            storyData(token)
+        }
         binding.myButton.setOnClickListener{
             storyViewModel.logout()
         }
     }
 
-    private fun storyData(){
-        val bundle = intent.getStringExtra(TOKEN)
-        val token: String? = bundle
-        Log.d(TOKEN, token.toString())
-        val client = token?.let { ApiConfig.getApiService().getStories("bearer $it") }
-        client?.enqueue(object: Callback<StoriesResponse> {
+    private fun storyData(token: String){
+        showLoading(true)
+        val client = ApiConfig.getApiService().getStories("bearer $token")
+        client.enqueue(object: Callback<StoriesResponse> {
             override fun onResponse(
                 call: Call<StoriesResponse>,
                 response: Response<StoriesResponse>
             ){
+                showLoading(false)
                 val responseBody = response.body()
                 if (response.isSuccessful && responseBody != null){
                     Log.d(TAG, "onSuccess: ${response.message()}")
@@ -98,6 +120,7 @@ class StoryActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<StoriesResponse>, t: Throwable){
+                showLoading(false)
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })
@@ -106,6 +129,24 @@ class StoryActivity : AppCompatActivity() {
     private fun showStory(log: MutableList<ListStoryItem>){
         val listStoryAdapter = StoryAdapter(log, this)
         binding.recyclerView.adapter = listStoryAdapter
+
+        listStoryAdapter.setOnItemClickListener(object : StoryAdapter.OnItemClickListener {
+            override fun onItemClick(v: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     companion object{

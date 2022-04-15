@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SubmissionIntermediate">
         <activity
+            android:name=".view.preferences.PreferencesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.detail.DetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.story.StoryActivity"
             android:exported="false" />
         <activity

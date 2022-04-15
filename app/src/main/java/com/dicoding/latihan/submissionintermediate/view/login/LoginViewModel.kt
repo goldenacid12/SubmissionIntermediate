@@ -13,9 +13,15 @@ class LoginViewModel(private val pref: UserPreference) : ViewModel() {
         return pref.getUser().asLiveData()
     }
 
-    fun login(user: UserModel) {
+    fun login() {
         viewModelScope.launch {
-            pref.login(user)
+            pref.login()
+        }
+    }
+
+    fun token(user: UserModel){
+        viewModelScope.launch {
+            pref.token(user)
         }
     }
 }

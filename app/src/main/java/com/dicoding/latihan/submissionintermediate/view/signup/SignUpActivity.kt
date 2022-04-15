@@ -5,6 +5,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
@@ -21,7 +22,6 @@ import com.dicoding.latihan.submissionintermediate.response.PostSignUpResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.prefs.Preferences
 
 private val Context.dataStore: DataStore<androidx.datastore.preferences.core.Preferences> by preferencesDataStore(name = "settings")
 
@@ -69,6 +69,9 @@ class SignUpActivity : AppCompatActivity() {
                 email.isEmpty() -> {
                     binding.emailEditTextLayout.error = getString(R.string.insert_email)
                 }
+                !(Patterns.EMAIL_ADDRESS.matcher(email).matches()) -> {
+                    binding.emailEditTextLayout.error = getString(R.string.email_not_format)
+                }
                 password.isEmpty() -> {
                     binding.passwordEditTextLayout.error = getString(R.string.insert_password)
                 }
@@ -76,17 +79,8 @@ class SignUpActivity : AppCompatActivity() {
                     binding.passwordEditTextLayout.error = getString(R.string.password_min)
                 }
                 else -> {
-                    signupViewModel.saveUser(UserModel(name, email, password, false,""))
-                    AlertDialog.Builder(this).apply {
-                        setTitle(getString(R.string.sign_up))
-                        setMessage(getString(R.string.account_create))
-                        setPositiveButton("OK") { _, _ ->
-                            finish()
-                        }
-                        create()
-                        show()
-                    }
                     signUpData(name, email, password)
+
                 }
             }
         }
@@ -102,7 +96,29 @@ class SignUpActivity : AppCompatActivity() {
                 val responseBody = response.body()
                 if (response.isSuccessful && responseBody != null){
                     Log.e(TAG, "onSuccess: ${response.message()}")
+                    if (responseBody.message != "Email is already taken"){
+                        signupViewModel.saveUser(UserModel(name, email, password, false,""))
+                        AlertDialog.Builder(this@SignUpActivity).apply {
+                            setTitle(getString(R.string.sign_up))
+                            setMessage(getString(R.string.account_create))
+                            setPositiveButton("OK") { _, _ ->
+                                finish()
+                            }
+                            create()
+                            show()
+                        }
+                    }
                 }else{
+                    if(responseBody?.message == "Email is already taken")
+                    signupViewModel.saveUser(UserModel(name, email, password, false,""))
+                    AlertDialog.Builder(this@SignUpActivity).apply {
+                        setTitle(getString(R.string.sign_up))
+                        setMessage(getString(R.string.email_used))
+                        setPositiveButton("OK") { _, _ ->
+                        }
+                        create()
+                        show()
+                    }
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }

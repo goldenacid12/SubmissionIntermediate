@@ -1,5 +1,6 @@
 package com.dicoding.latihan.submissionintermediate.view.story
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.latihan.submissionintermediate.R
 import com.dicoding.latihan.submissionintermediate.response.ListStoryItem
+import com.dicoding.latihan.submissionintermediate.view.detail.DetailActivity
 
 class StoryAdapter (
     private val listReview: MutableList<ListStoryItem>,
@@ -19,11 +21,11 @@ class StoryAdapter (
         private lateinit var mListener: AdapterView.OnItemClickListener
 
         //function when clicked
-        fun setOnItemClickListener(listener: AdapterView.OnItemClickListener) {
+        fun setOnItemClickListener(listener: OnItemClickListener) {
             mListener = listener
         }
 
-        interface OnItemClickListener {
+        interface OnItemClickListener : AdapterView.OnItemClickListener {
             fun onItemClick(v: Int)
         }
 
@@ -40,18 +42,20 @@ class StoryAdapter (
         override fun onBindViewHolder(viewholder: ViewHolder, position: Int) {
             //assign data to correspondence variable
             val data = listReview[position]
-            val userLogin = viewholder.tvItem1
-            val userAvatar = viewholder.tvItem2
-            userLogin.text = data.name
-            Glide.with(viewholder.itemView.context).load(data.photoUrl).into(userAvatar)
+            val storyLogin = viewholder.tvItem1
+            val storyAvatar = viewholder.tvItem2
+            val storyDescription = viewholder.tvItem3
+            storyLogin.text = data.name
+            storyDescription.text = data.description
+            Glide.with(viewholder.itemView.context).load(data.photoUrl).into(storyAvatar)
 
             //if RecyclerView clicked
             viewholder.itemView.setOnClickListener {
-                /*val intent = Intent(context, DetailActivity::class.java)
-                intent.putExtra(DetailActivity.EXTRA_DATA, data.login)
-                intent.putExtra(DetailActivity.EXTRA_FAV, data.id)
-                intent.putExtra(DetailActivity.EXTRA_AVATAR, data.avatarUrl)
-                context.startActivity(intent)*/
+                val intent = Intent(context, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_NAME, data.name)
+                intent.putExtra(DetailActivity.EXTRA_DESC, data.description)
+                intent.putExtra(DetailActivity.EXTRA_PHOTO, data.photoUrl)
+                context.startActivity(intent)
             }
         }
 
@@ -62,5 +66,6 @@ class StoryAdapter (
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val tvItem1: TextView = view.findViewById(R.id.tvUsername)
             val tvItem2: ImageView = view.findViewById(R.id.story)
+            val tvItem3: TextView = view.findViewById(R.id.description)
         }
     }

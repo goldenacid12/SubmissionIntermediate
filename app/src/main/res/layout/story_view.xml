@@ -19,12 +19,15 @@
 
         <ImageView
             android:id="@+id/story"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="400dp"
+            android:maxHeight="400dp"
             android:contentDescription="@string/story"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="8dp"
-            tools:src="@tools:sample/backgrounds/scenic" />
+            tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/tvUsername"
@@ -32,11 +35,19 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/story"
             android:layout_marginTop="8dp"
-            android:textSize="24sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/story"
             tools:text="Username" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/description"
+            android:textSize="12sp"
+            card_view:layout_constraintTop_toBottomOf="@+id/tvUsername"
+            tools:text="description"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

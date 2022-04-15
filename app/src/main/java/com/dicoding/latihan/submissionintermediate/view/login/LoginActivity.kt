@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.datastore.core.DataStore
@@ -17,6 +18,7 @@ import com.dicoding.latihan.submissionintermediate.databinding.ActivityLoginBind
 import com.dicoding.latihan.submissionintermediate.model.UserModel
 import com.dicoding.latihan.submissionintermediate.model.UserPreference
 import com.dicoding.latihan.submissionintermediate.response.PostLoginResponse
+import com.dicoding.latihan.submissionintermediate.view.preferences.PreferencesActivity
 import com.dicoding.latihan.submissionintermediate.view.story.StoryActivity
 import com.dicoding.latihan.submissionintermediate.view.signup.SignUpActivity
 import retrofit2.Call
@@ -36,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupView()
         setupViewModel()
+        showLoading(false)
         setupAction()
     }
 
@@ -81,8 +84,8 @@ class LoginActivity : AppCompatActivity() {
                     binding.passwordEditTextLayout.error = getString(R.string.password_false)
                 }
                 else -> {
-                    loginViewModel.login(user)
                     loginData(email, password)
+                    loginViewModel.login()
                 }
             }
         }
@@ -94,17 +97,19 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginData(email: String, password: String){
+        showLoading(true)
         val client = ApiConfig.getApiService().postLogin(email, password)
         client.enqueue(object: Callback<PostLoginResponse> {
             override fun onResponse(
                 call: Call<PostLoginResponse>,
                 response: Response<PostLoginResponse>
             ){
+                showLoading(false)
                 val responseBody = response.body()
                 if (response.isSuccessful && responseBody != null){
                     Log.e(TAG, "onSuccess: ${response.message()}")
+                    loginViewModel.token(UserModel(user.name, user.email, user.password, false, responseBody.loginResult.token))
                     val intent = Intent(this@LoginActivity, StoryActivity::class.java)
-                    intent.putExtra(StoryActivity.TOKEN, responseBody.loginResult.token)
                     startActivity(intent)
                     finish()
                 }else{
@@ -112,10 +117,20 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
             override fun onFailure(call: Call<PostLoginResponse>, t: Throwable){
+                showLoading(false)
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })
     }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
+
     companion object{
         private const val TAG = "LoginActivity"
     }
