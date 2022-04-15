@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
@@ -12,9 +13,14 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.latihan.submissionintermediate.R
 import com.dicoding.latihan.submissionintermediate.ViewModelFactory
+import com.dicoding.latihan.submissionintermediate.api.ApiConfig
 import com.dicoding.latihan.submissionintermediate.databinding.ActivitySignUpBinding
 import com.dicoding.latihan.submissionintermediate.model.UserModel
 import com.dicoding.latihan.submissionintermediate.model.UserPreference
+import com.dicoding.latihan.submissionintermediate.response.PostSignUpResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.prefs.Preferences
 
 private val Context.dataStore: DataStore<androidx.datastore.preferences.core.Preferences> by preferencesDataStore(name = "settings")
@@ -80,8 +86,32 @@ class SignUpActivity : AppCompatActivity() {
                         create()
                         show()
                     }
+                    signUpData(name, email, password)
                 }
             }
         }
+    }
+
+    private fun signUpData(name: String, email: String, password: String){
+        val client = ApiConfig.getApiService().postSignUp(name, email, password)
+        client.enqueue(object: Callback<PostSignUpResponse>{
+            override fun onResponse(
+                call: Call<PostSignUpResponse>,
+                response: Response<PostSignUpResponse>
+            ){
+                val responseBody = response.body()
+                if (response.isSuccessful && responseBody != null){
+                    Log.e(TAG, "onSuccess: ${response.message()}")
+                }else{
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+            }
+            override fun onFailure(call: Call<PostSignUpResponse>, t: Throwable){
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+        })
+    }
+    companion object{
+        private const val TAG = "SignUpActivity"
     }
 }

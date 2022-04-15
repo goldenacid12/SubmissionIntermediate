@@ -5,19 +5,23 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
-import androidx.appcompat.app.AlertDialog
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.latihan.submissionintermediate.*
+import com.dicoding.latihan.submissionintermediate.api.ApiConfig
 import com.dicoding.latihan.submissionintermediate.databinding.ActivityLoginBinding
 import com.dicoding.latihan.submissionintermediate.model.UserModel
 import com.dicoding.latihan.submissionintermediate.model.UserPreference
-import com.dicoding.latihan.submissionintermediate.view.main.MainActivity
+import com.dicoding.latihan.submissionintermediate.response.PostLoginResponse
+import com.dicoding.latihan.submissionintermediate.view.story.StoryActivity
 import com.dicoding.latihan.submissionintermediate.view.signup.SignUpActivity
-import java.util.prefs.Preferences
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 private val Context.dataStore: DataStore<androidx.datastore.preferences.core.Preferences> by preferencesDataStore(name = "settings")
 
@@ -78,16 +82,40 @@ class LoginActivity : AppCompatActivity() {
                 }
                 else -> {
                     loginViewModel.login()
-                    val intent = Intent(this, MainActivity::class.java)
+                    LoginData(email, password)
+                    val intent = Intent(this, StoryActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
             }
         }
         binding.signUpButton.setOnClickListener{
-            val intent = Intent(this, SignUpActivity::class.java).apply {
+            Intent(this, SignUpActivity::class.java).apply {
                 startActivity(this)
             }
         }
+    }
+
+    private fun LoginData(email: String, password: String){
+        val client = ApiConfig.getApiService().postLogin(email, password)
+        client.enqueue(object: Callback<PostLoginResponse> {
+            override fun onResponse(
+                call: Call<PostLoginResponse>,
+                response: Response<PostLoginResponse>
+            ){
+                val responseBody = response.body()
+                if (response.isSuccessful && responseBody != null){
+                    Log.e(TAG, "onSuccess: ${response.message()}")
+                }else{
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+            }
+            override fun onFailure(call: Call<PostLoginResponse>, t: Throwable){
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+        })
+    }
+    companion object{
+        private const val TAG = "LoginActivity"
     }
 }

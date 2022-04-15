@@ -119,7 +119,6 @@
         android:id="@+id/signUpButton"
         style="?attr/materialButtonOutlinedStyle"
         app:strokeColor="@color/purple_500"
-        app:strokeWidth="2dip"
         app:cornerRadius="10dp"
         android:layout_width="0dp"
         android:layout_height="48dp"

@@ -9,14 +9,15 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
-    //get for mainActivity before search
-    @POST("signup")
+    @FormUrlEncoded
+    @POST("register")
     fun postSignUp(
         @Field("name") name: String,
         @Field("email") email: String,
         @Field("password") password:String
     ):Call<PostSignUpResponse>
 
+    @FormUrlEncoded
     @POST("login")
     fun postLogin(
         @Field("email") email:String,
