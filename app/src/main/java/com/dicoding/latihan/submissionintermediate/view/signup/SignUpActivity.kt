@@ -76,7 +76,7 @@ class SignUpActivity : AppCompatActivity() {
                     binding.passwordEditTextLayout.error = getString(R.string.password_min)
                 }
                 else -> {
-                    signupViewModel.saveUser(UserModel(name, email, password, false))
+                    signupViewModel.saveUser(UserModel(name, email, password, false,""))
                     AlertDialog.Builder(this).apply {
                         setTitle(getString(R.string.sign_up))
                         setMessage(getString(R.string.account_create))

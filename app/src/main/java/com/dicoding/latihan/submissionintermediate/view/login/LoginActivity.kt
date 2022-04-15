@@ -81,11 +81,8 @@ class LoginActivity : AppCompatActivity() {
                     binding.passwordEditTextLayout.error = getString(R.string.password_false)
                 }
                 else -> {
-                    loginViewModel.login()
-                    LoginData(email, password)
-                    val intent = Intent(this, StoryActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    loginViewModel.login(user)
+                    loginData(email, password)
                 }
             }
         }
@@ -96,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun LoginData(email: String, password: String){
+    private fun loginData(email: String, password: String){
         val client = ApiConfig.getApiService().postLogin(email, password)
         client.enqueue(object: Callback<PostLoginResponse> {
             override fun onResponse(
@@ -106,6 +103,10 @@ class LoginActivity : AppCompatActivity() {
                 val responseBody = response.body()
                 if (response.isSuccessful && responseBody != null){
                     Log.e(TAG, "onSuccess: ${response.message()}")
+                    val intent = Intent(this@LoginActivity, StoryActivity::class.java)
+                    intent.putExtra(StoryActivity.TOKEN, responseBody.loginResult.token)
+                    startActivity(intent)
+                    finish()
                 }else{
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }

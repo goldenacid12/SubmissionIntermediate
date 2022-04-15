@@ -1,10 +1,7 @@
 package com.dicoding.latihan.submissionintermediate.api
 
 import android.media.Image
-import com.dicoding.latihan.submissionintermediate.response.NewStoriesResponse
-import com.dicoding.latihan.submissionintermediate.response.PostLoginResponse
-import com.dicoding.latihan.submissionintermediate.response.PostSignUpResponse
-import com.dicoding.latihan.submissionintermediate.response.StoriesResponse
+import com.dicoding.latihan.submissionintermediate.response.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -24,10 +21,9 @@ interface ApiService {
         @Field("password") password: String
     ):Call<PostLoginResponse>
 
-    @FormUrlEncoded
-    @Headers("Authorization: Bearer <token>")
     @GET("stories")
     fun getStories(
+        @Header("Authorization") token: String
     ):Call<StoriesResponse>
 
     @FormUrlEncoded
