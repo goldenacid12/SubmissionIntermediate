@@ -1,7 +1,9 @@
 package com.dicoding.latihan.submissionintermediate.api
 
-import android.media.Image
-import com.dicoding.latihan.submissionintermediate.response.*
+import com.dicoding.latihan.submissionintermediate.response.NewStoriesResponse
+import com.dicoding.latihan.submissionintermediate.response.PostLoginResponse
+import com.dicoding.latihan.submissionintermediate.response.PostSignUpResponse
+import com.dicoding.latihan.submissionintermediate.response.StoriesResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -13,20 +15,20 @@ interface ApiService {
     fun postSignUp(
         @Field("name") name: String,
         @Field("email") email: String,
-        @Field("password") password:String
-    ):Call<PostSignUpResponse>
+        @Field("password") password: String
+    ): Call<PostSignUpResponse>
 
     @FormUrlEncoded
     @POST("login")
     fun postLogin(
-        @Field("email") email:String,
+        @Field("email") email: String,
         @Field("password") password: String
-    ):Call<PostLoginResponse>
+    ): Call<PostLoginResponse>
 
     @GET("stories")
     fun getStories(
         @Header("Authorization") token: String
-    ):Call<StoriesResponse>
+    ): Call<StoriesResponse>
 
     @Multipart
     @POST("stories")

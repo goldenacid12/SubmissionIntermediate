@@ -17,7 +17,7 @@
     <string name="insert_name">Insert Name!</string>
     <string name="password_min">Password must have at least 6 characters</string>
     <string name="log_out">Log Out</string>
-    <string name="story">Story</string>
+    <string name="story">Stories</string>
     <string name="input_name">Input Name</string>
     <string name="sign_in">Sign In</string>
     <string name="user">user</string>
@@ -26,17 +26,17 @@
     <string name="email_not_format">Email isn\'t the right Format</string>
     <string name="email_used">Email has been Used</string>
     <string name="preferences">Preferences</string>
-    <string name="token">TOKEN</string>
+    <string name="token">Token</string>
     <string name="settings">Settings</string>
     <string name="add_story">Add Story</string>
     <string name="camera">camera</string>
     <string name="gallery">gallery</string>
     <string name="upload">upload</string>
-    <string name="camera_x">cameraX</string>
     <string name="photo_preview">photo preview</string>
     <string name="new_story">New Story</string>
     <string name="no_permission">Permission not granted</string>
     <string name="upload_error">Upload Error</string>
     <string name="no_description">Description is required to upload</string>
     <string name="no_photo">Photo is required to upload</string>
+    <string name="empty">empty</string>
 </resources>

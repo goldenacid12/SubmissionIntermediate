@@ -3,7 +3,6 @@ package com.dicoding.latihan.submissionintermediate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.latihan.submissionintermediate.model.UserPreference
-import com.dicoding.latihan.submissionintermediate.view.add.AddStoryActivity
 import com.dicoding.latihan.submissionintermediate.view.add.AddStoryViewModel
 import com.dicoding.latihan.submissionintermediate.view.login.LoginViewModel
 import com.dicoding.latihan.submissionintermediate.view.main.MainViewModel

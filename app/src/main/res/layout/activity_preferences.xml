@@ -12,15 +12,17 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="@string/token"
-        android:textStyle="bold"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/token"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="25dp"
         android:text="@string/token"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"

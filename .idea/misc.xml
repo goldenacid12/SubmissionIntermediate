@@ -3,18 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.166" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/bg_button.xml" value="0.1435" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/bg_button_disable.xml" value="0.1435" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/bg_login_button.xml" value="0.1635" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/bg_signup_button.xml" value="0.1" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/button_shape.xml" value="0.144" />
+        <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.166" />
+        <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_baseline_camera_alt_24.xml" value="0.166" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.1635" />
+        <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_baseline_insert_photo_24.xml" value="0.166" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.1635" />
+        <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.166" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.1605" />
+        <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.166" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_capture.xml" value="0.1445" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_close_black_24dp.xml" value="0.1435" />
+        <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_empty.xml" value="0.166" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1435" />
+        <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_logo_g.xml" value="0.166" />
+        <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_logo_g_background.xml" value="0.166" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_logo_intermediate.xml" value="0.1445" />
+        <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_logo_intermediate_100.xml" value="0.166" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_place_holder.xml" value="0.1405" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/drawable/ic_switch_camera.xml" value="0.1445" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/layout/activity_add_story.xml" value="0.33" />
@@ -22,11 +32,13 @@
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/layout/activity_detail.xml" value="0.25" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/layout/activity_preferences.xml" value="0.33" />
+        <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/layout/activity_preferences.xml" value="0.25" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/layout/activity_sign_up.xml" value="0.33" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/layout/activity_story.xml" value="0.25" />
         <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/layout/story_view.xml" value="0.22" />
-        <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/menu/option_menu.xml" value="0.1421875" />
+        <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/menu/option_menu.xml" value="0.33" />
+        <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/mipmap-anydpi-v26/ic_logo_g.xml" value="0.166" />
+        <entry key="..\:/Users/alane/AndroidStudioProjects/SubmissionIntermediate/app/src/main/res/mipmap-anydpi-v26/ic_logo_g_round.xml" value="0.1495" />
       </map>
     </option>
   </component>

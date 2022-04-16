@@ -18,19 +18,21 @@ class MyEditPass : AppCompatEditText {
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         init()
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        // Menambahkan text alignment pada editText
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 
     private fun init() {
-        // Menambahkan aksi ketika ada perubahan text akan memunculkan clear button
         addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
                 // Do nothing.

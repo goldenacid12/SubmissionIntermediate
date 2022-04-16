@@ -14,7 +14,9 @@ import com.dicoding.latihan.submissionintermediate.model.UserPreference
 import com.dicoding.latihan.submissionintermediate.view.login.LoginActivity
 import com.dicoding.latihan.submissionintermediate.view.story.StoryActivity
 
-private val Context.dataStore: DataStore<androidx.datastore.preferences.core.Preferences> by preferencesDataStore(name = "settings")
+private val Context.dataStore: DataStore<androidx.datastore.preferences.core.Preferences> by preferencesDataStore(
+    name = "settings"
+)
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,15 +24,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         setContentView(R.layout.activity_main)
-
-        //hide ActionBar
         supportActionBar?.hide()
 
-        //display splash screen
         Handler().postDelayed({
             setupViewModel()
-            finish()
+            supportFinishAfterTransition()
         }, 2000)
     }
 

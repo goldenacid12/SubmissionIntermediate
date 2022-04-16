@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.AdapterView
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.preferencesDataStore
@@ -28,7 +27,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-private val Context.dataStore: DataStore<androidx.datastore.preferences.core.Preferences> by preferencesDataStore(name = "settings")
+private val Context.dataStore: DataStore<androidx.datastore.preferences.core.Preferences> by preferencesDataStore(
+    name = "settings"
+)
 
 class StoryActivity : AppCompatActivity() {
 
@@ -38,6 +39,7 @@ class StoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStoryBinding.inflate(layoutInflater)
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         setContentView(binding.root)
 
         val layoutManager = LinearLayoutManager(this)
@@ -58,7 +60,7 @@ class StoryActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
+        return when (item.itemId) {
             R.id.settings -> {
                 val settings = Intent(this, PreferencesActivity::class.java)
                 startActivity(settings)
@@ -78,7 +80,9 @@ class StoryActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
-        supportActionBar?.title = getString(R.string.story)
+        supportActionBar?.title = "  " + getString(R.string.story)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setIcon(R.drawable.ic_logo_g)
     }
 
     private fun setupViewModel() {
@@ -92,46 +96,48 @@ class StoryActivity : AppCompatActivity() {
             }
         }
     }
-    private fun setupAction(){
-        storyViewModel.getUser().observe(this){ user ->
+
+    private fun setupAction() {
+        storyViewModel.getUser().observe(this) { user ->
             val token = user.token
             Log.d(TOKEN, token)
             storyData(token)
         }
-        binding.myButton.setOnClickListener{
+        binding.myButton.setOnClickListener {
             storyViewModel.logout()
+            finish()
         }
-        binding.addStory.setOnClickListener{
+        binding.addStory.setOnClickListener {
             startActivity(Intent(this, AddStoryActivity::class.java))
         }
     }
 
-    private fun storyData(token: String){
+    private fun storyData(token: String) {
         showLoading(true)
         val client = ApiConfig.getApiService().getStories("bearer $token")
-        client.enqueue(object: Callback<StoriesResponse> {
+        client.enqueue(object : Callback<StoriesResponse> {
             override fun onResponse(
                 call: Call<StoriesResponse>,
                 response: Response<StoriesResponse>
-            ){
+            ) {
                 showLoading(false)
                 val responseBody = response.body()
-                if (response.isSuccessful && responseBody != null){
+                if (response.isSuccessful && responseBody != null) {
                     Log.d(TAG, "onSuccess: ${response.message()}")
                     showStory(responseBody.listStory as MutableList<ListStoryItem>)
-                }else{
+                } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
 
-            override fun onFailure(call: Call<StoriesResponse>, t: Throwable){
+            override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
                 showLoading(false)
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })
     }
 
-    private fun showStory(log: MutableList<ListStoryItem>){
+    private fun showStory(log: MutableList<ListStoryItem>) {
         val listStoryAdapter = StoryAdapter(log, this)
         binding.recyclerView.adapter = listStoryAdapter
 
@@ -154,7 +160,7 @@ class StoryActivity : AppCompatActivity() {
         }
     }
 
-    companion object{
+    companion object {
         private const val TAG = "StoryActivity"
         const val TOKEN = "TOKEN"
     }

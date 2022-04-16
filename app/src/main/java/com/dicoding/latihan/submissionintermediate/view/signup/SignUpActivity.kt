@@ -1,14 +1,17 @@
 package com.dicoding.latihan.submissionintermediate.view.signup
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
@@ -23,7 +26,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-private val Context.dataStore: DataStore<androidx.datastore.preferences.core.Preferences> by preferencesDataStore(name = "settings")
+private val Context.dataStore: DataStore<androidx.datastore.preferences.core.Preferences> by preferencesDataStore(
+    name = "settings"
+)
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var signupViewModel: SignupViewModel
@@ -31,10 +36,18 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         setContentView(binding.root)
+        showLoading(false)
+        playAnimation()
         setupView()
         setupViewModel()
         setupAction()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout)
     }
 
     private fun setupView() {
@@ -75,7 +88,7 @@ class SignUpActivity : AppCompatActivity() {
                 password.isEmpty() -> {
                     binding.passwordEditTextLayout.error = getString(R.string.insert_password)
                 }
-                password.length < 6 ->{
+                password.length < 6 -> {
                     binding.passwordEditTextLayout.error = getString(R.string.password_min)
                 }
                 else -> {
@@ -86,31 +99,34 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun signUpData(name: String, email: String, password: String){
+    private fun signUpData(name: String, email: String, password: String) {
+        showLoading(true)
         val client = ApiConfig.getApiService().postSignUp(name, email, password)
-        client.enqueue(object: Callback<PostSignUpResponse>{
+        client.enqueue(object : Callback<PostSignUpResponse> {
             override fun onResponse(
                 call: Call<PostSignUpResponse>,
                 response: Response<PostSignUpResponse>
-            ){
+
+            ) {
+                showLoading(false)
                 val responseBody = response.body()
-                if (response.isSuccessful && responseBody != null){
+                if (response.isSuccessful && responseBody != null) {
                     Log.e(TAG, "onSuccess: ${response.message()}")
-                    if (responseBody.message != "Email is already taken"){
-                        signupViewModel.saveUser(UserModel(name, email, password, false,""))
+                    if (responseBody.message != "Email is already taken") {
+                        signupViewModel.saveUser(UserModel(name, email, password, false, ""))
                         AlertDialog.Builder(this@SignUpActivity).apply {
                             setTitle(getString(R.string.sign_up))
                             setMessage(getString(R.string.account_create))
                             setPositiveButton("OK") { _, _ ->
-                                finish()
+                                supportFinishAfterTransition()
                             }
                             create()
                             show()
                         }
                     }
-                }else{
-                    if(responseBody?.message == "Email is already taken")
-                    signupViewModel.saveUser(UserModel(name, email, password, false,""))
+                } else {
+                    if (responseBody?.message == "Email is already taken")
+                        signupViewModel.saveUser(UserModel(name, email, password, false, ""))
                     AlertDialog.Builder(this@SignUpActivity).apply {
                         setTitle(getString(R.string.sign_up))
                         setMessage(getString(R.string.email_used))
@@ -122,12 +138,42 @@ class SignUpActivity : AppCompatActivity() {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
-            override fun onFailure(call: Call<PostSignUpResponse>, t: Throwable){
+
+            override fun onFailure(call: Call<PostSignUpResponse>, t: Throwable) {
+                showLoading(false)
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })
     }
-    companion object{
+
+    private fun playAnimation() {
+        val logo = ObjectAnimator.ofFloat(binding.imageView, View.ALPHA, 1f).setDuration(500)
+        val signUpTitle =
+            ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(500)
+        val name =
+            ObjectAnimator.ofFloat(binding.nameEditTextLayout, View.ALPHA, 1f).setDuration(500)
+        val email =
+            ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(500)
+        val password =
+            ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(500)
+        val signUpButton =
+            ObjectAnimator.ofFloat(binding.signupButton, View.ALPHA, 1f).setDuration(500)
+
+        AnimatorSet().apply {
+            playSequentially(logo, signUpTitle, name, email, password, signUpButton)
+            startDelay = 500
+        }.start()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
+
+    companion object {
         private const val TAG = "SignUpActivity"
     }
 }

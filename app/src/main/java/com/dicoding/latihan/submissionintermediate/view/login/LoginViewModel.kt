@@ -19,7 +19,7 @@ class LoginViewModel(private val pref: UserPreference) : ViewModel() {
         }
     }
 
-    fun token(user: UserModel){
+    fun token(user: UserModel) {
         viewModelScope.launch {
             pref.token(user)
         }

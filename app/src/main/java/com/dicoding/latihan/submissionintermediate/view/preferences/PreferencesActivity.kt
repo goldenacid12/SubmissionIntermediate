@@ -1,11 +1,8 @@
 package com.dicoding.latihan.submissionintermediate.view.preferences
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
-import android.util.Log
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -35,16 +32,13 @@ class PreferencesActivity : AppCompatActivity() {
             ViewModelFactory(UserPreference.getInstance(dataStore))
         )[PreferencesViewModel::class.java]
 
-        preferencesViewModel.getUser().observe(this){ user ->
+        preferencesViewModel.getUser().observe(this) { user ->
             val token = binding.token
             token.text = user.token
         }
 
-        supportActionBar?.title = getString(R.string.preferences)
-    }
-
-
-    companion object{
-        const val EXTRA_TOKEN = "extra_token"
+        supportActionBar?.title = "  " + getString(R.string.preferences)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setIcon(R.drawable.ic_logo_g)
     }
 }

@@ -92,6 +92,9 @@ class AddStoryActivity : AppCompatActivity() {
             ViewModelFactory(UserPreference.getInstance(dataStore))
         )[AddStoryViewModel::class.java]
 
+        supportActionBar?.title = "  " + getString(R.string.add_story)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setIcon(R.drawable.ic_logo_g)
 
         showLoading(false)
         if (!allPermissionsGranted()) {
@@ -102,10 +105,8 @@ class AddStoryActivity : AppCompatActivity() {
             )
         }
 
-        addStoryViewModel.getUser().observe(this){ user ->
+        addStoryViewModel.getUser().observe(this) { user ->
             token = user.token
-            //Log.d("TOKEN", token)
-            //postStory(imageMultipart, desc, token)
         }
         binding.cameraButton.setOnClickListener { startTakePhoto() }
         binding.galleryButton.setOnClickListener { startGallery() }
@@ -170,7 +171,7 @@ class AddStoryActivity : AppCompatActivity() {
             val file = reduceFileImage(getFile as File)
             val description = binding.editDescription
 
-            if(description.text.toString().isEmpty()){
+            if (description.text.toString().isEmpty()) {
                 showLoading(false)
                 AlertDialog.Builder(this).apply {
                     setTitle(getString(R.string.upload_error))
@@ -180,7 +181,7 @@ class AddStoryActivity : AppCompatActivity() {
                     create()
                     show()
                 }
-            }else {
+            } else {
                 showLoading(false)
                 val desc = description.text.toString().toRequestBody("text/plain".toMediaType())
                 val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
@@ -192,7 +193,7 @@ class AddStoryActivity : AppCompatActivity() {
                 postStory(imageMultipart, desc, token)
             }
 
-        }else{
+        } else {
             showLoading(false)
             AlertDialog.Builder(this).apply {
                 setTitle(getString(R.string.upload_error))
@@ -205,25 +206,25 @@ class AddStoryActivity : AppCompatActivity() {
         }
     }
 
-    private fun postStory(picture: MultipartBody.Part, desc: RequestBody, token: String){
+    private fun postStory(picture: MultipartBody.Part, desc: RequestBody, token: String) {
 
         showLoading(true)
-        val client = ApiConfig.getApiService().postStories(picture, desc,"bearer $token")
-        client.enqueue(object: Callback<NewStoriesResponse> {
+        val client = ApiConfig.getApiService().postStories(picture, desc, "bearer $token")
+        client.enqueue(object : Callback<NewStoriesResponse> {
             override fun onResponse(
                 call: Call<NewStoriesResponse>,
                 response: Response<NewStoriesResponse>
-            ){
+            ) {
                 showLoading(false)
                 val responseBody = response.body()
-                if (response.isSuccessful && responseBody != null){
+                if (response.isSuccessful && responseBody != null) {
                     Log.e(TAG, "onSuccess: ${response.message()}")
-                    finish()
-                }else{
+                } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
-            override fun onFailure(call: Call<NewStoriesResponse>, t: Throwable){
+
+            override fun onFailure(call: Call<NewStoriesResponse>, t: Throwable) {
                 showLoading(false)
                 Log.e(TAG, "onFailure: ${t.message}")
             }

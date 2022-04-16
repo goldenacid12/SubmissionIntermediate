@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SubmissionIntermediate</string>
+    <string name="input_email">Masukkan Email</string>
+    <string name="email">Email</string>
+    <string name="app_logo">App Logo</string>
+    <string name="password">Kata Sandi</string>
+    <string name="login">Masuk</string>
+    <string name="sign_up">Daftar</string>
+    <string name="name">Nama</string>
+    <string name="or">atau</string>
+    <string name="insert_email">Masukkan Email</string>
+    <string name="insert_password">Masukkan Sandi</string>
+    <string name="email_false">Email salah</string>
+    <string name="password_false">Password salah</string>
+    <string name="input_password">Masukkan Sandi</string>
+    <string name="account_create"> Akun dibuat!</string>
+    <string name="insert_name">Masukkan Nama!</string>
+    <string name="password_min">Sandi harus memiliki 6 karakter</string>
+    <string name="log_out">Keluar</string>
+    <string name="story">Stories</string>
+    <string name="input_name">Masukkan Nama</string>
+    <string name="sign_in">Masuk</string>
+    <string name="user">user</string>
+    <string name="description">Deskripsi…</string>
+    <string name="detail_photo">detail photo</string>
+    <string name="email_not_format">Email tidak sesuai format</string>
+    <string name="email_used">Email sudah digunakan</string>
+    <string name="preferences">Pengaturan</string>
+    <string name="token">Token</string>
+    <string name="settings">Pengaturan</string>
+    <string name="add_story">Menambah Story</string>
+    <string name="camera">kamera</string>
+    <string name="gallery">gallery</string>
+    <string name="upload">unggah</string>
+    <string name="photo_preview">photo preview</string>
+    <string name="new_story">Story Baru</string>
+    <string name="no_permission">Akses tidak diberikan</string>
+    <string name="upload_error">Error dalam pengunggahan</string>
+    <string name="no_description">Isi deskripsi untuk upload</string>
+    <string name="no_photo">Pilih gambar untuk upload</string>
+    <string name="empty">empty</string>
+</resources>
