@@ -21,7 +21,7 @@
     <string name="input_name">Input Name</string>
     <string name="sign_in">Sign In</string>
     <string name="user">user</string>
-    <string name="description">description</string>
+    <string name="description">Description…</string>
     <string name="detail_photo">detail photo</string>
     <string name="email_not_format">Email isn\'t the right Format</string>
     <string name="email_used">Email has been Used</string>
@@ -35,4 +35,5 @@
     <string name="camera_x">cameraX</string>
     <string name="photo_preview">photo preview</string>
     <string name="new_story">New Story</string>
+    <string name="no_permission">Permission not granted</string>
 </resources>

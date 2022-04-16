@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.AdapterView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.preferencesDataStore
@@ -20,6 +21,7 @@ import com.dicoding.latihan.submissionintermediate.databinding.ActivityStoryBind
 import com.dicoding.latihan.submissionintermediate.model.UserPreference
 import com.dicoding.latihan.submissionintermediate.response.ListStoryItem
 import com.dicoding.latihan.submissionintermediate.response.StoriesResponse
+import com.dicoding.latihan.submissionintermediate.view.add.AddStoryActivity
 import com.dicoding.latihan.submissionintermediate.view.login.LoginActivity
 import com.dicoding.latihan.submissionintermediate.view.preferences.PreferencesActivity
 import retrofit2.Call
@@ -98,6 +100,9 @@ class StoryActivity : AppCompatActivity() {
         }
         binding.myButton.setOnClickListener{
             storyViewModel.logout()
+        }
+        binding.addStory.setOnClickListener{
+            startActivity(Intent(this, AddStoryActivity::class.java))
         }
     }
 

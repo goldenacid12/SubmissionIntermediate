@@ -2,6 +2,8 @@ package com.dicoding.latihan.submissionintermediate.api
 
 import android.media.Image
 import com.dicoding.latihan.submissionintermediate.response.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -26,11 +28,11 @@ interface ApiService {
         @Header("Authorization") token: String
     ):Call<StoriesResponse>
 
-    @FormUrlEncoded
+    @Multipart
     @POST("stories")
     fun postStories(
-        @Field("description") description: String,
-        @Field("photo") photo: Image,
+        @Part file: MultipartBody.Part,
+        @Part("description") description: RequestBody,
         @Header("Authorization") token: String
     ): Call<NewStoriesResponse>
 }
