@@ -36,4 +36,7 @@
     <string name="photo_preview">photo preview</string>
     <string name="new_story">New Story</string>
     <string name="no_permission">Permission not granted</string>
+    <string name="upload_error">Upload Error</string>
+    <string name="no_description">Description is required to upload</string>
+    <string name="no_photo">Photo is required to upload</string>
 </resources>

@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -20,15 +21,16 @@ import androidx.core.content.FileProvider
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
 import com.dicoding.latihan.submissionintermediate.R
+import com.dicoding.latihan.submissionintermediate.ViewModelFactory
 import com.dicoding.latihan.submissionintermediate.api.ApiConfig
 import com.dicoding.latihan.submissionintermediate.databinding.ActivityAddStoryBinding
-import com.dicoding.latihan.submissionintermediate.model.UserModel
+import com.dicoding.latihan.submissionintermediate.model.UserPreference
 import com.dicoding.latihan.submissionintermediate.response.NewStoriesResponse
-import com.dicoding.latihan.submissionintermediate.response.PostLoginResponse
-import com.dicoding.latihan.submissionintermediate.view.camera.*
-import com.dicoding.latihan.submissionintermediate.view.login.LoginActivity
-import com.dicoding.latihan.submissionintermediate.view.story.StoryActivity
+import com.dicoding.latihan.submissionintermediate.view.camera.createTempFile
+import com.dicoding.latihan.submissionintermediate.view.camera.reduceFileImage
+import com.dicoding.latihan.submissionintermediate.view.camera.uriToFile
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -38,7 +40,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.*
+import java.io.File
 
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -48,6 +50,7 @@ class AddStoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddStoryBinding
     private lateinit var currentPhotoPath: String
     private lateinit var addStoryViewModel: AddStoryViewModel
+    private lateinit var token: String
 
     private var getFile: File? = null
 
@@ -84,6 +87,11 @@ class AddStoryActivity : AppCompatActivity() {
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        addStoryViewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(UserPreference.getInstance(dataStore))
+        )[AddStoryViewModel::class.java]
+
 
         showLoading(false)
         if (!allPermissionsGranted()) {
@@ -93,9 +101,15 @@ class AddStoryActivity : AppCompatActivity() {
                 REQUEST_CODE_PERMISSIONS
             )
         }
+
+        addStoryViewModel.getUser().observe(this){ user ->
+            token = user.token
+            //Log.d("TOKEN", token)
+            //postStory(imageMultipart, desc, token)
+        }
         binding.cameraButton.setOnClickListener { startTakePhoto() }
         binding.galleryButton.setOnClickListener { startGallery() }
-        binding.uploadButton.setOnClickListener { uploadImage() }
+        binding.uploadButton.setOnClickListener { uploadImage(token) }
 
 
     }
@@ -150,24 +164,44 @@ class AddStoryActivity : AppCompatActivity() {
         }
     }
 
-    private fun uploadImage() {
+    private fun uploadImage(token: String) {
+        showLoading(true)
         if (getFile != null) {
             val file = reduceFileImage(getFile as File)
             val description = binding.editDescription
-            val desc = description.text.toString().toRequestBody("text/plain".toMediaType())
-            val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-            val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                "photo",
-                file.name,
-                requestImageFile
-            )
-            addStoryViewModel.getUser().observe(this){ user ->
-                val token = user.token
-                //Log.d("TOKEN", token)
-                //postStory(imageMultipart, desc, token)
+
+            if(description.text.toString().isEmpty()){
+                showLoading(false)
+                AlertDialog.Builder(this).apply {
+                    setTitle(getString(R.string.upload_error))
+                    setMessage(getString(R.string.no_description))
+                    setPositiveButton("OK") { _, _ ->
+                    }
+                    create()
+                    show()
+                }
+            }else {
+                showLoading(false)
+                val desc = description.text.toString().toRequestBody("text/plain".toMediaType())
+                val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                    "photo",
+                    file.name,
+                    requestImageFile
+                )
+                postStory(imageMultipart, desc, token)
             }
 
-
+        }else{
+            showLoading(false)
+            AlertDialog.Builder(this).apply {
+                setTitle(getString(R.string.upload_error))
+                setMessage(getString(R.string.no_photo))
+                setPositiveButton("OK") { _, _ ->
+                }
+                create()
+                show()
+            }
         }
     }
 

@@ -32,7 +32,7 @@ class ViewModelFactory(private val pref: UserPreference) : ViewModelProvider.New
             modelClass.isAssignableFrom(PreferencesViewModel::class.java) -> {
                 PreferencesViewModel(pref) as T
             }
-            modelClass.isAssignableFrom(AddStoryActivity::class.java) -> {
+            modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> {
                 AddStoryViewModel(pref) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
