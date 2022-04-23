@@ -39,10 +39,13 @@ class MyEditPass : AppCompatEditText {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+
             }
 
             override fun afterTextChanged(s: Editable) {
-                // Do nothing.
+                if (s.toString().length < 6){
+                    error = context.getString(R.string.password_min)
+                }
             }
         })
     }

@@ -39,4 +39,5 @@
     <string name="no_description">Description is required to upload</string>
     <string name="no_photo">Photo is required to upload</string>
     <string name="empty">empty</string>
+    <string name="upload_sucess">Upload Success</string>
 </resources>

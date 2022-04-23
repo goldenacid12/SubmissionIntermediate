@@ -7,7 +7,6 @@ import com.dicoding.latihan.submissionintermediate.view.add.AddStoryViewModel
 import com.dicoding.latihan.submissionintermediate.view.login.LoginViewModel
 import com.dicoding.latihan.submissionintermediate.view.main.MainViewModel
 import com.dicoding.latihan.submissionintermediate.view.preferences.PreferencesViewModel
-import com.dicoding.latihan.submissionintermediate.view.signup.SignupViewModel
 import com.dicoding.latihan.submissionintermediate.view.story.StoryViewModel
 
 
@@ -18,9 +17,6 @@ class ViewModelFactory(private val pref: UserPreference) : ViewModelProvider.New
         return when {
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 MainViewModel(pref) as T
-            }
-            modelClass.isAssignableFrom(SignupViewModel::class.java) -> {
-                SignupViewModel(pref) as T
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(pref) as T

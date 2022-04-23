@@ -85,12 +85,6 @@ class LoginActivity : AppCompatActivity() {
                 password.isEmpty() -> {
                     binding.passwordEditTextLayout.error = getString(R.string.insert_password)
                 }
-                email != user.email -> {
-                    binding.emailEditTextLayout.error = getString(R.string.email_false)
-                }
-                password != user.password -> {
-                    binding.passwordEditTextLayout.error = getString(R.string.password_false)
-                }
                 else -> {
                     loginData(email, password)
                     loginViewModel.login()
@@ -118,9 +112,9 @@ class LoginActivity : AppCompatActivity() {
                     Log.e(TAG, "onSuccess: ${response.message()}")
                     loginViewModel.token(
                         UserModel(
-                            user.name,
-                            user.email,
-                            user.password,
+                            responseBody.loginResult.name,
+                            email,
+                            password,
                             false,
                             responseBody.loginResult.token
                         )

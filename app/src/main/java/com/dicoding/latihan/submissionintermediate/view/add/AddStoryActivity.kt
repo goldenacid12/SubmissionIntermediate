@@ -73,7 +73,6 @@ class AddStoryActivity : AppCompatActivity() {
                     getString(R.string.no_permission),
                     Toast.LENGTH_SHORT
                 ).show()
-                finish()
             }
         }
     }
@@ -219,6 +218,7 @@ class AddStoryActivity : AppCompatActivity() {
                 val responseBody = response.body()
                 if (response.isSuccessful && responseBody != null) {
                     Log.e(TAG, "onSuccess: ${response.message()}")
+                    Toast.makeText(this@AddStoryActivity, getString(R.string.upload_sucess), Toast.LENGTH_SHORT).show()
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }

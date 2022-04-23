@@ -14,24 +14,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.preferencesDataStore
-import androidx.lifecycle.ViewModelProvider
 import com.dicoding.latihan.submissionintermediate.R
-import com.dicoding.latihan.submissionintermediate.ViewModelFactory
 import com.dicoding.latihan.submissionintermediate.api.ApiConfig
 import com.dicoding.latihan.submissionintermediate.databinding.ActivitySignUpBinding
-import com.dicoding.latihan.submissionintermediate.model.UserModel
-import com.dicoding.latihan.submissionintermediate.model.UserPreference
 import com.dicoding.latihan.submissionintermediate.response.PostSignUpResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-private val Context.dataStore: DataStore<androidx.datastore.preferences.core.Preferences> by preferencesDataStore(
-    name = "settings"
-)
-
 class SignUpActivity : AppCompatActivity() {
-    private lateinit var signupViewModel: SignupViewModel
     private lateinit var binding: ActivitySignUpBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +32,6 @@ class SignUpActivity : AppCompatActivity() {
         showLoading(false)
         playAnimation()
         setupView()
-        setupViewModel()
         setupAction()
     }
 
@@ -63,13 +53,6 @@ class SignUpActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    private fun setupViewModel() {
-        signupViewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(UserPreference.getInstance(dataStore))
-        )[SignupViewModel::class.java]
-    }
-
     private fun setupAction() {
         binding.signupButton.setOnClickListener {
             val name = binding.nameEditText.text.toString()
@@ -87,9 +70,6 @@ class SignUpActivity : AppCompatActivity() {
                 }
                 password.isEmpty() -> {
                     binding.passwordEditTextLayout.error = getString(R.string.insert_password)
-                }
-                password.length < 6 -> {
-                    binding.passwordEditTextLayout.error = getString(R.string.password_min)
                 }
                 else -> {
                     signUpData(name, email, password)
@@ -113,7 +93,6 @@ class SignUpActivity : AppCompatActivity() {
                 if (response.isSuccessful && responseBody != null) {
                     Log.e(TAG, "onSuccess: ${response.message()}")
                     if (responseBody.message != "Email is already taken") {
-                        signupViewModel.saveUser(UserModel(name, email, password, false, ""))
                         AlertDialog.Builder(this@SignUpActivity).apply {
                             setTitle(getString(R.string.sign_up))
                             setMessage(getString(R.string.account_create))
@@ -126,7 +105,6 @@ class SignUpActivity : AppCompatActivity() {
                     }
                 } else {
                     if (responseBody?.message == "Email is already taken")
-                        signupViewModel.saveUser(UserModel(name, email, password, false, ""))
                     AlertDialog.Builder(this@SignUpActivity).apply {
                         setTitle(getString(R.string.sign_up))
                         setMessage(getString(R.string.email_used))
