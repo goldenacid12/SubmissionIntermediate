@@ -58,7 +58,7 @@
         android:layout_margin="20dp"
         android:backgroundTint="@color/purple_200"
         android:contentDescription="@string/log_out"
-        android:src="@drawable/ic_baseline_lock_24"
+        android:src="@drawable/ic_baseline_exit_to_app_24"
         app:backgroundTint="@color/purple_200"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
