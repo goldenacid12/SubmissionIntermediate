@@ -41,4 +41,10 @@
     <string name="no_photo">Pilih gambar untuk upload</string>
     <string name="empty">empty</string>
     <string name="upload_sucess"> Unggah berhasil</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="maps">maps</string>
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satelit</string>
+    <string name="terrain_type">Daratan</string>
+    <string name="hybrid_type">Campuran</string>
 </resources>

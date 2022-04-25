@@ -6,6 +6,7 @@ import com.dicoding.latihan.submissionintermediate.model.UserPreference
 import com.dicoding.latihan.submissionintermediate.view.add.AddStoryViewModel
 import com.dicoding.latihan.submissionintermediate.view.login.LoginViewModel
 import com.dicoding.latihan.submissionintermediate.view.main.MainViewModel
+import com.dicoding.latihan.submissionintermediate.view.maps.MapsViewModel
 import com.dicoding.latihan.submissionintermediate.view.preferences.PreferencesViewModel
 import com.dicoding.latihan.submissionintermediate.view.story.StoryViewModel
 
@@ -29,6 +30,9 @@ class ViewModelFactory(private val pref: UserPreference) : ViewModelProvider.New
             }
             modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> {
                 AddStoryViewModel(pref) as T
+            }
+            modelClass.isAssignableFrom(MapsViewModel::class.java) -> {
+                MapsViewModel(pref) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

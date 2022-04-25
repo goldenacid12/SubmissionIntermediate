@@ -22,6 +22,7 @@ import com.dicoding.latihan.submissionintermediate.response.ListStoryItem
 import com.dicoding.latihan.submissionintermediate.response.StoriesResponse
 import com.dicoding.latihan.submissionintermediate.view.add.AddStoryActivity
 import com.dicoding.latihan.submissionintermediate.view.login.LoginActivity
+import com.dicoding.latihan.submissionintermediate.view.maps.MapsActivity
 import com.dicoding.latihan.submissionintermediate.view.preferences.PreferencesActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -109,6 +110,9 @@ class StoryActivity : AppCompatActivity() {
         }
         binding.addStory.setOnClickListener {
             startActivity(Intent(this, AddStoryActivity::class.java))
+        }
+        binding.maps.setOnClickListener {
+            startActivity(Intent(this, MapsActivity::class.java))
         }
     }
 

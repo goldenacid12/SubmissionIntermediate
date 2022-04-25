@@ -40,4 +40,10 @@
     <string name="no_photo">Photo is required to upload</string>
     <string name="empty">empty</string>
     <string name="upload_sucess">Upload Success</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="maps">maps</string>
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satellite</string>
+    <string name="terrain_type">Terrain</string>
+    <string name="hybrid_type">Hybrid</string>
 </resources>
