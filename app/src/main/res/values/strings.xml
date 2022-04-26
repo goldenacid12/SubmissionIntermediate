@@ -46,4 +46,7 @@
     <string name="satellite_type">Satellite</string>
     <string name="terrain_type">Terrain</string>
     <string name="hybrid_type">Hybrid</string>
+    <string name="login_success">Login Successful</string>
+    <string name="login_fail">Login Failed</string>
+    <string name="upload_fail">Upload Failed</string>
 </resources>

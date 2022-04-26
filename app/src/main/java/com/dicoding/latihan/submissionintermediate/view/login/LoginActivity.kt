@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.preferencesDataStore
@@ -110,6 +111,7 @@ class LoginActivity : AppCompatActivity() {
                 val responseBody = response.body()
                 if (response.isSuccessful && responseBody != null) {
                     Log.e(TAG, "onSuccess: ${response.message()}")
+                    Toast.makeText(this@LoginActivity, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
                     loginViewModel.token(
                         UserModel(
                             responseBody.loginResult.name,
@@ -125,12 +127,14 @@ class LoginActivity : AppCompatActivity() {
                     finish()
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
+                    Toast.makeText(this@LoginActivity, getString(R.string.login_fail), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<PostLoginResponse>, t: Throwable) {
                 showLoading(false)
                 Log.e(TAG, "onFailure: ${t.message}")
+                Toast.makeText(this@LoginActivity, getString(R.string.login_fail), Toast.LENGTH_SHORT).show()
             }
         })
     }

@@ -219,13 +219,16 @@ class AddStoryActivity : AppCompatActivity() {
                 if (response.isSuccessful && responseBody != null) {
                     Log.e(TAG, "onSuccess: ${response.message()}")
                     Toast.makeText(this@AddStoryActivity, getString(R.string.upload_sucess), Toast.LENGTH_SHORT).show()
+                    finish()
                 } else {
+                    Toast.makeText(this@AddStoryActivity, getString(R.string.upload_fail), Toast.LENGTH_SHORT).show()
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<NewStoriesResponse>, t: Throwable) {
                 showLoading(false)
+                Toast.makeText(this@AddStoryActivity, getString(R.string.upload_fail), Toast.LENGTH_SHORT).show()
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })
