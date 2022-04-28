@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/titleTextView"
         app:startIconDrawable="@drawable/ic_baseline_email_24">
 
-        <com.dicoding.latihan.submissionintermediate.MyEditEmail
+        <com.dicoding.latihan.submissionintermediate.custom.MyEditEmail
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
         app:passwordToggleEnabled="true"
         app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
-        <com.dicoding.latihan.submissionintermediate.MyEditPass
+        <com.dicoding.latihan.submissionintermediate.custom.MyEditPass
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

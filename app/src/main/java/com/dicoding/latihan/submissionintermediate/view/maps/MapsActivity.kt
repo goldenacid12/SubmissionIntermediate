@@ -57,7 +57,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment!!.getMapAsync(this)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.map_options, menu)
         return true
     }
@@ -117,7 +117,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun setupViewModel() {
         mapsViewModel = ViewModelProvider(
             this,
-            ViewModelFactory(UserPreference.getInstance(dataStore))
+            ViewModelFactory(this, UserPreference.getInstance(dataStore))
         )[MapsViewModel::class.java]
         mapsViewModel.getUser().observe(this) { user ->
             if (!user.isLogin) {

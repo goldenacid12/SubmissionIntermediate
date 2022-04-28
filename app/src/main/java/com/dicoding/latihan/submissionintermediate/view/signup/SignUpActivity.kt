@@ -2,7 +2,6 @@ package com.dicoding.latihan.submissionintermediate.view.signup
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -12,8 +11,6 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.preferencesDataStore
 import com.dicoding.latihan.submissionintermediate.R
 import com.dicoding.latihan.submissionintermediate.api.ApiConfig
 import com.dicoding.latihan.submissionintermediate.databinding.ActivitySignUpBinding

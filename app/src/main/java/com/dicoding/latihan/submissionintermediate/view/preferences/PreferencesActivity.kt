@@ -29,7 +29,7 @@ class PreferencesActivity : AppCompatActivity() {
 
         preferencesViewModel = ViewModelProvider(
             this,
-            ViewModelFactory(UserPreference.getInstance(dataStore))
+            ViewModelFactory(this, UserPreference.getInstance(dataStore))
         )[PreferencesViewModel::class.java]
 
         preferencesViewModel.getUser().observe(this) { user ->

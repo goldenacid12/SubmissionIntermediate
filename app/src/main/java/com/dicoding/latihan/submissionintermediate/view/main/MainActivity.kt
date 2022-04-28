@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupViewModel() {
         mainViewModel = ViewModelProvider(
             this,
-            ViewModelFactory(UserPreference.getInstance(dataStore))
+            ViewModelFactory(this, UserPreference.getInstance(dataStore))
         )[MainViewModel::class.java]
 
         mainViewModel.getUser().observe(this) { user ->

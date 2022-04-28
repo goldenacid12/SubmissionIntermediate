@@ -1,7 +1,9 @@
 package com.dicoding.latihan.submissionintermediate
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.dicoding.latihan.submissionintermediate.di.Injection
 import com.dicoding.latihan.submissionintermediate.model.UserPreference
 import com.dicoding.latihan.submissionintermediate.view.add.AddStoryViewModel
 import com.dicoding.latihan.submissionintermediate.view.login.LoginViewModel
@@ -11,7 +13,7 @@ import com.dicoding.latihan.submissionintermediate.view.preferences.PreferencesV
 import com.dicoding.latihan.submissionintermediate.view.story.StoryViewModel
 
 
-class ViewModelFactory(private val pref: UserPreference) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory(private val context: Context, private val pref: UserPreference) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -23,7 +25,7 @@ class ViewModelFactory(private val pref: UserPreference) : ViewModelProvider.New
                 LoginViewModel(pref) as T
             }
             modelClass.isAssignableFrom(StoryViewModel::class.java) -> {
-                StoryViewModel(pref) as T
+                StoryViewModel(pref, Injection.provideRepository(context)) as T
             }
             modelClass.isAssignableFrom(PreferencesViewModel::class.java) -> {
                 PreferencesViewModel(pref) as T

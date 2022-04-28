@@ -26,8 +26,10 @@ interface ApiService {
     ): Call<PostLoginResponse>
 
     @GET("stories")
-    fun getStories(
-        @Header("Authorization") token: String
+    suspend fun getStories(
+        @Header("Authorization") token: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int
     ): Call<StoriesResponse>
 
     @GET("stories?location=1")

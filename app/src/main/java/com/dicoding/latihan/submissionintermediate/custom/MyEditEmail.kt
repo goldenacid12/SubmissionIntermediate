@@ -1,4 +1,4 @@
-package com.dicoding.latihan.submissionintermediate
+package com.dicoding.latihan.submissionintermediate.custom
 
 import android.content.Context
 import android.graphics.Canvas
@@ -10,6 +10,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
+import com.dicoding.latihan.submissionintermediate.R
 
 class MyEditEmail : AppCompatEditText, View.OnTouchListener {
 

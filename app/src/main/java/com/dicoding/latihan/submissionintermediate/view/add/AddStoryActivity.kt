@@ -88,7 +88,7 @@ class AddStoryActivity : AppCompatActivity() {
 
         addStoryViewModel = ViewModelProvider(
             this,
-            ViewModelFactory(UserPreference.getInstance(dataStore))
+            ViewModelFactory(this, UserPreference.getInstance(dataStore))
         )[AddStoryViewModel::class.java]
 
         supportActionBar?.title = "  " + getString(R.string.add_story)

@@ -49,4 +49,5 @@
     <string name="login_success">Login Successful</string>
     <string name="login_fail">Login Failed</string>
     <string name="upload_fail">Upload Failed</string>
+    <string name="retry">Retry</string>
 </resources>

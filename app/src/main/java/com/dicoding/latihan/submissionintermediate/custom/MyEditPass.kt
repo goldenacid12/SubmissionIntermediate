@@ -1,4 +1,4 @@
-package com.dicoding.latihan.submissionintermediate
+package com.dicoding.latihan.submissionintermediate.custom
 
 import android.content.Context
 import android.graphics.Canvas
@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
+import com.dicoding.latihan.submissionintermediate.R
 
 class MyEditPass : AppCompatEditText {
 
